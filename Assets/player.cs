@@ -8,7 +8,7 @@ public class player : MonoBehaviour {
 
 	PlayerController controller;
 	public float moveSpeed = 5;
-	public float jumpSpeed = 5;
+	public float jumpForce = 5;
 
 
 	void Start(){
@@ -22,8 +22,14 @@ public class player : MonoBehaviour {
 
 		controller.Move (moveVelocity);
 
-		if(
+		if(IsGrounded() && Input.GetKeyDown(KeyCode.Space)){
+			controller.Jump (jumpForce);
 	}
 
+
+}
+	private bool IsGrounded(){
+		return Physics.CheckCapsule(collider.bounds.center, new Vector3(col.bounds.center.x, col.bounds.center.x, col.bounds.min.y, col.bounds.center.z) col.radius * .9f, groundsLayers);
+	}
 
 }
