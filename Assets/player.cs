@@ -10,9 +10,13 @@ public class player : MonoBehaviour {
 	public float moveSpeed = 5;
 	public float jumpForce = 5;
 
+	public LayerMask groundLayers;
+	public CapsuleCollider col;
+
 
 	void Start(){
 		controller = GetComponent<PlayerController> ();
+		col = GetComponent<CapsuleCollider> ();
 		
 	}
 
@@ -29,7 +33,9 @@ public class player : MonoBehaviour {
 
 }
 	private bool IsGrounded(){
-		return Physics.CheckCapsule(collider.bounds.center, new Vector3(col.bounds.center.x, col.bounds.center.x, col.bounds.min.y, col.bounds.center.z) col.radius * .9f, groundsLayers);
+		return Physics.CheckCapsule(col.bounds.center,
+			new Vector3(col.bounds.center.x, col.bounds.min.y, col.bounds.center.z),
+			col.radius*.9f, groundLayers);
 	}
 
 }

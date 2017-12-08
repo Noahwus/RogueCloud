@@ -16,7 +16,8 @@ public class PlayerController : MonoBehaviour {
 		velocity = _velocity;
 	}
 
-	public void Jump(Vector3 jumpForce){
+	public void Jump(float jumpForce){
+		print ("Worked");
 		playerRigidbody.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
 	}
 
