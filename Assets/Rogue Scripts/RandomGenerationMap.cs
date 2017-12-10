@@ -5,10 +5,12 @@ using UnityEngine;
 public class RandomGenerationMap : MonoBehaviour {
 
 	public GameObject Wall;
+	public GameObject FPSplayer;
+	Vector3 temp;
 
 	public int[,,] map;			//Map array
 	private int mapRow = 50;	//Rows
-	private int mapCol = 50;	//Collums
+	private int mapCol = 25;	//Collums
 	private int mapHeight = 6;	//How many stacks of walls are possible
 	private int mapCull;		//how many times to repeat the steps of corridor gen
 
@@ -28,7 +30,7 @@ public class RandomGenerationMap : MonoBehaviour {
 		//initialize the 3d array
 		map = new int[mapRow, mapHeight, mapCol];
 		//Corridor gen will repeat this many times
-		mapCull = (mapRow * mapCol) * 4;
+		mapCull = (mapRow * mapCol) / 2;
 	}
 
 	private void initializeMap(){
@@ -48,7 +50,12 @@ public class RandomGenerationMap : MonoBehaviour {
 		zz = zz / 2;
 
 		for (int i = 0; i < mapCull; i++) {
-			
+
+			if (xx > mapRow + 2) {xx = mapRow / 2; }
+			if (zz > mapCol + 2) {zz = mapCol / 2; }
+			if (xx < 2) {xx = mapRow / 2; }
+			if (zz < 2) {zz = mapCol / 2; }
+
 			int m = Random.Range (0, 8);
 
 			if (m == 0) { 
@@ -95,6 +102,13 @@ public class RandomGenerationMap : MonoBehaviour {
 			Debug.Log ("xx = " + xx + ", zz = " + zz);
 		}
 
+		temp = transform.localPosition;
+		temp.x = xx;
+		temp.y = 15;
+		temp.z = zz;
+		FPSplayer.transform.localPosition = temp;
+
+
 		/*/Smooth the Corridors
 		for (int k = 1; k < mapHeight - 2; k++) {
 			//Debug.Log (k);
@@ -122,7 +136,7 @@ public class RandomGenerationMap : MonoBehaviour {
 			for(int i = 0; i < mapRow; i++){
 				for(int j = 0; j < mapCol; j++){
 					if (map [i, k, j] == 1) {
-						if (Random.Range (0, 13) >1+k+k) {
+						if (Random.Range (0, 60) < 60-(k*4)){
 							map [i, k + 1, j] = 1;
 						}
 					}
@@ -189,10 +203,6 @@ public class RandomGenerationMap : MonoBehaviour {
 		zz = Mathf.Clamp (zz, 2, mapCol-3);
 		map [xx, 1, zz] = 0;
 
-		if (xx > mapRow + 2) {xx = mapRow / 2; }
-		if (zz > mapCol + 2) {zz = mapCol / 2; }
-		if (xx < 2) {xx = mapRow / 2; }
-		if (zz < 2) {zz = mapCol / 2; }
 	}
 
 	public int rowReturn(){
