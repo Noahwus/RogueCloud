@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomGenerationMap : MonoBehaviour {
+public class RandomGenerationMap(2) : MonoBehaviour {
 
 	public GameObject Wall;
 	public GameObject notWall;
@@ -15,12 +15,10 @@ public class RandomGenerationMap : MonoBehaviour {
 	private int mapHeight = 6;	//How many stacks of walls are possible
 	private int mapCull;		//how many times to repeat the steps of corridor gen (look in loadResoure();
 
-	enum instance{ VOID, WALL, TRAP};
-
-
-	//private int xx;
-	//private int zz;
-
+	enum instances{ 
+		VOID, 
+		WALL, 
+		TRAP};
 
 	void Start(){
 		loadResources ();
@@ -31,7 +29,7 @@ public class RandomGenerationMap : MonoBehaviour {
 		//place the player
 		for (int i = 2; i < mapRow - 2; i++) {
 			for (int j = 2; j < mapCol - 2; j++) {
-				if (map [i, 1, j] == 0) {
+				if (map [i, 1, j] == instances.VOID ) {
 					//set Player Location
 					temp = transform.localPosition;
 					temp.x = i*2 ;
@@ -44,7 +42,7 @@ public class RandomGenerationMap : MonoBehaviour {
 
 				}
 			}
-		}//*/
+		}///
 
 	}
 
@@ -62,7 +60,7 @@ public class RandomGenerationMap : MonoBehaviour {
 		// Lay down initial ground plan (all Walls on height 1)
 		for(int i = 0; i < mapRow; i++){
 			for(int j = 0; j < mapCol; j++){
-				map [i,1,j] = 1;
+				map [i,1,j] = instances.WALL;
 			}
 		}
 
@@ -74,20 +72,20 @@ public class RandomGenerationMap : MonoBehaviour {
 		zz = zz / 2;
 
 		//Sets center to 0, player can start from here for now, may change
-		map [xx, 1, zz] = 0;
+		map [xx, 1, zz] = instances.VOID;
 
 		int avg = 0;
 		int q = 0;
 
 		for (int i = 0; i < mapCull; i++) {
-			
+
 
 			//
 			if (xx > mapRow + 2) {xx = xx-5; }
 			if (zz > mapCol + 2) {zz = zz-5; }
 			if (xx < 2) {xx = xx+5; }
 			if (zz < 2) {zz = zz+5; }
-			//*/
+			///
 			int m = Random.Range (0, 8);
 
 
@@ -142,7 +140,7 @@ public class RandomGenerationMap : MonoBehaviour {
 
 
 
-		/*/Smooth the Corridors
+		//Smooth the Corridors
 		for (int k = 1; k < mapHeight - 2; k++) {
 			//Debug.Log (k);
 			for (int i = 1; i < mapRow - 1; i++) {
@@ -162,7 +160,7 @@ public class RandomGenerationMap : MonoBehaviour {
 
 
 
-		/*/
+		//
 
 		//Stack up inside Walls ( + height )
 		for (int k = 1; k < mapHeight-1; k++) {
@@ -170,11 +168,11 @@ public class RandomGenerationMap : MonoBehaviour {
 				for(int j = 0; j < mapCol; j++){
 					if (map [i, k, j] == 1) {
 						if (Random.Range (0, 60) < 60-(k*4)){
-							map [i, k + 1, j] = 1;
+							map [i, k + 1, j] = instances.WALL;
 						}
 						if (k == 2) {
 							if (Random.Range (0, 60) < 60-(k*4)){
-								map [i, k + 1, j] = 1;
+								map [i, k + 1, j] = instances.WALL;
 							}
 						}
 					}
@@ -182,8 +180,8 @@ public class RandomGenerationMap : MonoBehaviour {
 			}
 
 		}
-			
-		/*///Smooth the map
+
+		////Smooth the map
 		for (int k = 1; k < mapHeight - 1; k++) {
 			for (int i = 1; i < mapRow-1; i++) {
 				for (int j = 1; j < mapCol-1; j++) {
@@ -200,7 +198,7 @@ public class RandomGenerationMap : MonoBehaviour {
 				}
 			}
 		}
-		//*/
+		///
 
 
 
@@ -216,10 +214,10 @@ public class RandomGenerationMap : MonoBehaviour {
 			for (int i = 0; i < mapRow; i++) {
 				for (int j = 0; j < mapCol; j++) {
 					if (i == 0 || i == mapRow-1) {
-						map [i, k, j] = 1;
+						map [i, k, j] = instances.WALL;
 					}
 					if (j == 0 || j == mapCol-1) {
-						map [i, k, j] = 1;
+						map [i, k, j] = instances.WALL;
 
 					}
 				}
@@ -231,31 +229,31 @@ public class RandomGenerationMap : MonoBehaviour {
 			for (int j = 0; j < mapCol; j++) {
 				for (int k = 1; k < mapHeight; k++) {
 					//Create instances of 'Wall'
-					if (map [i, k, j] == 1) {
+					if (map [i, k, j] == instances.WALL) {
 						Instantiate (Wall, new Vector3 (i * 2, k *2 , j * 2), Quaternion.identity);
-						}
+					}
 
 					//Create instances of ~ trap
-					else if (map [i, k, j] == 2) {
+					else if (map [i, k, j] == instances.TRAP) {
 						Instantiate (notWall, new Vector3 (i * 2, k *2 , j * 2), Quaternion.identity);
-					}
 					}
 				}
 			}
+		}
 
-		/*/ceiling (has to be run after populate because it places walls above the limit of the array
+		//ceiling (has to be run after populate because it places walls above the limit of the array
 		for (int i = 0; i < mapRow; i++) {
 			for (int j = 0; j < mapCol; j++) {
 				Instantiate (Wall, new Vector3 (i * 2, 12 , j * 2), Quaternion.identity);
 			}
-		}//*/
+		}///
 	}
 
 
 	public void cullingClamp(int xx, int zz){
 		xx = Mathf.Clamp (xx, 2, mapRow-3);
 		zz = Mathf.Clamp (zz, 2, mapCol-3);
-		map [xx, 1, zz] = 0;
+		map [xx, 1, zz] = instances.VOID;
 
 	}
 
@@ -264,20 +262,20 @@ public class RandomGenerationMap : MonoBehaviour {
 		//Traps for inescapable holes
 		for(int k = 4; k>=2; k--){
 			for (int i = 1; i < mapRow - 1; i++) {
-					for (int j = 1; j < mapCol - 1; j++) {
-						//if Space next to ceiling is open, and the two spaces below it as well
-						if (map [i, k, j] == 0 &&
-						   map [i - 1, k, j] == 1 &&
-						   map [i + 1, k, j] == 1 &&
-						   map [i, k, j - 1] == 1 &&
-						   map [i, k, j + 1] == 1) {
-							if (map [i, k-1, j] == 0) {
-								if (map [i, k-2, j] == 0) {
-									map [i, k-2, j] = 2;
-								}
+				for (int j = 1; j < mapCol - 1; j++) {
+					//if Space next to ceiling is open, and the two spaces below it as well
+					if (map [i, k, j] == instances.VOID &&
+						map [i - 1, k, j] == instances.WALL &&
+						map [i + 1, k, j] == instances.WALL &&
+						map [i, k, j - 1] == instances.WALL &&
+						map [i, k, j + 1] == instances.WALL) {
+						if (map [i, k-1, j] == instances.VOID) {
+							if (map [i, k-2, j] == instances.VOID) {
+								map [i, k-2, j] = instances.TRAP;
 							}
 						}
 					}
+				}
 
 
 			}
@@ -289,7 +287,7 @@ public class RandomGenerationMap : MonoBehaviour {
 		//place the player
 		for (int i = 2; i < mapRow - 2; i++) {
 			for (int j = 2; j < mapCol - 2; j++) {
-				if (map [i, 1, j] == 0) {
+				if (map [i, 1, j] == instances.VOID) {
 					//set Player Location
 					temp = transform.localPosition;
 					temp.x = i*2 ;
@@ -317,3 +315,4 @@ public class RandomGenerationMap : MonoBehaviour {
 	}
 
 }
+*/
