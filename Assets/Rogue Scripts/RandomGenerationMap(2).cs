@@ -316,3 +316,33 @@ public class RandomGenerationMap(2) : MonoBehaviour {
 
 }
 */
+
+
+
+
+
+//more shit that didn't work
+
+/*
+else {
+	if(((i!=mapRow-1)&&j!=mapCol-1) && (map [i, k - 1, j] == 0 && map [i + 1, k - 1, j] == 1 && map [i, k - 1, j - 1] == 1 && map [i, k - 1, j + 1] == 1)||
+		(map [i, k - 1, j] == 0 && map [i - 1, k - 1, j] == 1 && map [i, k - 1, j - 1] == 1 && map [i, k - 1, j + 1] == 1)||
+		(map [i, k - 1, j] == 0 && map [i - 1, k - 1, j] == 1 && map [i + 1, k - 1, j] == 1 && map [i, k - 1, j + 1] == 1)||
+		(map [i, k - 1, j] == 0 && map [i - 1, k - 1, j] == 1 && map [i + 1, k - 1, j] == 1 && map [i, k - 1, j - 1] == 1 )){
+		if(k!=3 && (map [i, k - 2, j] == 0 && map [i + 2, k - 2, j] == 1 && map [i, k - 2, j - 2] == 1 && map [i, k - 2, j + 1] == 1)||
+			(map [i, k - 2, j] == 0 && map [i - 2, k - 2, j] == 1 && map [i, k - 2, j - 2] == 1 && map [i, k - 2, j + 1] == 1)||
+			(map [i, k - 2, j] == 0 && map [i - 2, k - 2, j] == 1 && map [i + 2, k - 2, j] == 1 && map [i, k - 2, j + 1] == 1)||
+			(map [i, k - 2, j] == 0 && map [i - 2, k - 2, j] == 1 && map [i + 2, k - 2, j] == 1 && map [i, k - 2, j - 1] == 1 )){
+			if ((map [i, k - 3, j] == 0 && map [i + 2, k - 3, j] == 1 && map [i, k - 3, j - 2] == 1 && map [i, k - 3, j + 1] == 1) ||
+				(map [i, k - 3, j] == 0 && map [i - 2, k - 3, j] == 1 && map [i, k - 3, j - 2] == 1 && map [i, k - 3, j + 1] == 1) ||
+				(map [i, k - 3, j] == 0 && map [i - 2, k - 3, j] == 1 && map [i + 2, k - 3, j] == 1 && map [i, k - 3, j + 1] == 1) ||
+				(map [i, k - 3, j] == 0 && map [i - 2, k - 3, j] == 1 && map [i + 2, k - 3, j] == 1 && map [i, k - 3, j - 1] == 1)) {
+				if (map [i, k - 2, j] == 0) {
+					map [i, k - 2, j] = 2;
+				}
+			}
+		}	
+
+	}
+
+}*/

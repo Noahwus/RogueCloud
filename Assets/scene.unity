@@ -1644,6 +1644,7 @@ MonoBehaviour:
   Wall: {fileID: 1753093711665478, guid: ba2a4c3b7adfbf6459dec23dc5aae407, type: 2}
   notWall: {fileID: 1846233802}
   FPSplayer: {fileID: 918235005}
+  mapHeight: 8
 --- !u!114 &460568035
 MonoBehaviour:
   m_ObjectHideFlags: 0

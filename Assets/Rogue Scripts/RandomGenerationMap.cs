@@ -210,6 +210,7 @@ public class RandomGenerationMap : MonoBehaviour {
 
 	private void mapPopulate (){
 		trapPopulate ();
+		chestPopulate ();
 
 		//Border Walls
 		for (int k = 1; k < mapHeight; k++) {
@@ -260,31 +261,6 @@ public class RandomGenerationMap : MonoBehaviour {
 	}
 
 
-	public void trapPopulate(){
-		//Traps for inescapable holes
-		for(int k = 4; k>=2; k--){
-			for (int i = 1; i < mapRow - 1; i++) {
-					for (int j = 1; j < mapCol - 1; j++) {
-						//if Space next to ceiling is open, and the two spaces below it as well
-						if (map [i, k, j] == 0 &&
-						   map [i - 1, k, j] == 1 &&
-						   map [i + 1, k, j] == 1 &&
-						   map [i, k, j - 1] == 1 &&
-						   map [i, k, j + 1] == 1) {
-							if (map [i, k-1, j] == 0) {
-								if (map [i, k-2, j] == 0) {
-									map [i, k-2, j] = 2;
-								}
-							}
-						}
-					}
-
-
-			}
-		}
-	}
-
-
 	private void playerPlace(){
 		//place the player
 		for (int i = 2; i < mapRow - 2; i++) {
@@ -297,7 +273,7 @@ public class RandomGenerationMap : MonoBehaviour {
 					temp.z = j*2; 
 					FPSplayer.transform.localPosition = temp;
 
-					break;break;
+					break;
 				} else {
 
 				}
