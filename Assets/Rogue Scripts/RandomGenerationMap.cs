@@ -283,6 +283,117 @@ public class RandomGenerationMap : MonoBehaviour {
 	}
 
 
+	public void trapPopulate(){
+		//Traps for inescapable holes
+		for(int k = mapHeight-1; k>=1; k--){
+			for (int i = 1; i < mapRow-1; i++) {
+					for (int j = 1; j < mapCol-1; j++) {
+						//if Space next to ceiling is open, and the two spaces below it as well
+						if (map [i, k, j] == 0) {
+							if (map [i, k - 1, j] == 0 &&
+							     map [i - 1, k - 1, j] == 1 &&
+							     map [i + 1, k - 1, j] == 1 &&
+							     map [i, k - 1, j - 1] == 1 &&
+							     map [i, k - 1, j + 1] == 1) {
+									if (map [i, k - 2, j] == 0) {
+										map [i, k - 2, j] = 2;
+										//Debug.Log ("Traps aren't gay");
+								}
+							} 
+						}
+					}
+
+
+			}
+		}
+	}
+		
+
+	public void chestPopulate(){
+		for (int i = 1; i < mapRow-1; i++) {
+			for (int j = 1; j < mapCol-1; j++) {
+				groundPocketPopulate (i, 1, j, 2, 2);
+			}
+		}
+
+
+	}
+
+	public void groundPocketPopulate(int i, int k, int j, int replace, int isolation){
+		if (map [i, k, j] == 0) {
+			//East
+			if ((map [i, k, j] == 0 && map [i + 1, k, j] == 1 && map [i, k, j - 1] == 1 && map [i, k, j + 1] == 1)) {
+				if (((map [i - 1, k, j] == 0 && map [i - 1, k, j + 1] == 1 && map [i - 1, k, j - 1] == 1)) || isolation == 1) {
+					if ( ((map [i - 2, k, j] == 0 && map [i - 2, k, j + 1] == 1 && map [i - 2, k, j - 1] == 1) || isolation == 2) || isolation ==1) {
+						if (Random.Range (0, 100) < ((mapCull))) {
+							map [i, k, j] = replace;
+						}
+					}
+				}
+			//West
+			} else if ((map [i, k, j] == 0 && map [i - 1, k, j] == 1 && map [i, k, j - 1] == 1 && map [i, k, j + 1] == 1)) {
+				if(((map[i+1, k, j] == 0) && (map[i+1,k,j+1] == 1) && (map[i+1,k,j-1] ==1)) || isolation == 1){
+					if(((map[i+2, k, j] == 0) && (map[i+2,k,j+1] == 1) && (map[i+2,k,j-1] ==1) || isolation == 2) || isolation == 1){
+						if(Random.Range(0,100)<((mapCull))){
+							map[i,k,j] = replace;
+						}
+					}
+				}
+			//North
+			} else if ((map [i, k, j] == 0 && map [i - 1, k, j] == 1 && map [i + 1, k, j] == 1 && map [i, k, j + 1] == 1)) {
+				if ((map [i, k, j - 1] == 0 && map [i - 1, k, j - 1] == 1 && map [i + 1, k, j - 1] == 1) || isolation == 1) {
+					if(((map[i, k, j - 1] == 0) && (map[i + 2, k , j + 1] == 1) && (map[i + 2 , k , j - 1] ==1) || isolation == 2) || isolation == 1 ){
+						if (Random.Range (0, 100) < ((mapCull))) {
+							map [i, k, j] = replace;
+						}
+					}
+				}
+			//South
+			} else if( (map [i, k, j] == 0 && map [i - 1, k, j] == 1 && map [i + 1, k, j] == 1 && map [i, k, j - 1] == 1)) {
+				if((map[i, k, j+1] == 0 && map[i-1,k,j+1] == 1 && map[i+1,k,j+1] ==1) || isolation == 1){
+					if (((map [i, k, j + 1] == 0 && map [i - 2, k, j + 1] == 1 && map [i + 2, k, j + 1] == 1) || isolation == 2) || isolation == 1) {
+						if (Random.Range (0, 100) < ((mapCull ))) {
+							map [i, k, j] = replace;
+						}
+					}
+				}
+			}else{}
+
+				}else{//nothing
+		}
+	}
+
+
+	/*
+	public int NeighborLeft(int i, int k, int j){
+		return map [i-1, k, j];
+	}
+
+	public int NeighborRight(int i, int k, int j){
+		return map [i+1, k, j];
+	}
+
+	public int NeighborUp(int i, int k, int j){
+		return map [i, k, j+1];
+	}
+
+	public int NeighborDown(int i, int k, int j){
+		return map [i, k, j-1];
+	}
+
+	public int NeighborAbove(int i, int k, int j){
+		return map [i, k+1, j];
+	}
+
+	public int NeighborBelow(int i, int k, int j){
+		return map [i, k-1, j];
+	}
+
+*/
+
+
+
+
 
 	public int rowReturn(){
 		return mapRow;
