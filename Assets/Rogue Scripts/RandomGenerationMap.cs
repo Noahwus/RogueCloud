@@ -210,6 +210,7 @@ public class RandomGenerationMap : MonoBehaviour {
 				for (int j = 0; j < mapCol; j++) {
 					if (i == 0 || i == mapRow-1) {
 						map [i, k, j] = (int)instance.WALL;
+						map [i, mapHeight + 1, mapRow] = (int)instance.WALL;
 					}
 					if (j == 0 || j == mapCol-1) {
 						map [i, k, j] = (int)instance.WALL;
@@ -248,7 +249,7 @@ public class RandomGenerationMap : MonoBehaviour {
 		//ceiling (has to be run after populate because it places walls above the limit of the array
 		for (int i = 0; i < mapRow; i++) {
 			for (int j = 0; j < mapCol; j++) {
-				Instantiate (Wall, new Vector3 (i * 2, 12 , j * 2), Quaternion.identity);
+				Instantiate (Wall, new Vector3 (i * 2, mapHeight * 2 , j * 2), Quaternion.identity);
 			}
 		}//*/
 	}
@@ -324,7 +325,7 @@ public class RandomGenerationMap : MonoBehaviour {
 	public void chestPopulate(){
 		for (int i = 1; i < mapRow-1; i++) {
 			for (int j = 1; j < mapCol-1; j++) {
-				groundPocketPopulate (i, 1, j, (int)instance.CHEST, 2);
+				groundPocketPopulate (i, 1, j, (int)instance.CHEST, 1);
 			}
 		}
 
